@@ -4,39 +4,41 @@ function addItem() {
     author: document.getElementById("author").value,
   };
 
-  let bookList = document.getElementById("book-list");
+  const bookList = document.getElementById("book-list");
 
-  let newBook = document.createElement("p");
+  const item = document.createElement('div');
+  item.classList.add('items');
+
+  const newBook = document.createElement("p");
+  newBook.classList.add('disp-book')
   newBook.innerHTML = `${library.title}<br>${library.author}`;
 
-  let removeBook = document.createElement("button");
-  removeBook.id = "remove-btn";
-  removeBook.classList.add("${library.title}");
+  const removeBook = document.createElement("button");
+  removeBook.id = 'rmv';
+  removeBook.classList.add("book-remove");
   removeBook.innerHTML = "Remove";
+  removeBook.addEventListener('click', removeItem);
 
-  let rule = document.createElement("hr");
+  const rule = document.createElement("hr");
 
-  bookList.appendChild(newBook);
-  bookList.appendChild(removeBook);
-  bookList.appendChild(rule);
+  item.append(newBook);
+  item.append(removeBook);
+  item.append(rule);
+  bookList.append(item);
 }
 
-function removeItem() {
-  // get the list of items
-  let bookList = document.getElementById("book-list");
-  let newBook = document.querySelector("p");
-  // remove the last item from the list
-  if (newBook) {
-    newBook.parentNode.removeChild(newBook);
-  }
-}
+function removeItem (e) {
+    const item = e.target.closest('.items');
+  
+    item.querySelector('.book-remove').removeEventListener('click', removeItem);
+  
+    item.parentElement.removeChild(item);
+};
 
-// add event listeners to the buttons
-let addBook = document.getElementById("add-btn");
 addBook.addEventListener("click", function () {
   addItem();
   document.getElementById("forms").reset();
 });
 
-//   document.getElementById('remove-btn').addEventListener('click', removeItem);
-removeBook.addEventListener("click", removeItem);
+
+
