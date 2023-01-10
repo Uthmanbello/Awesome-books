@@ -25,6 +25,8 @@ function addItem() {
   item.append(removeBook);
   item.append(rule);
   bookList.append(item);
+
+  document.getElementById("forms").reset();
 }
 
 function removeItem (e) {
@@ -35,10 +37,8 @@ function removeItem (e) {
     item.parentElement.removeChild(item);
 };
 
-addBook.addEventListener("click", function () {
-  addItem();
-  document.getElementById("forms").reset();
-});
+addBook = document.getElementById("add-btn");
+addBook.addEventListener("click", addItem);
 
 
 
